@@ -7,11 +7,12 @@
 </head>
 
 <body>
+<th:block layout:fragment="body" th:remove="tag">
 
 <table>
   <thead>
   <tr>
-    <th>Joke</th>
+    <th>Equation</th>
     <th>Likes</th>
     <th>Dislikes</th>
   </tr>
@@ -21,24 +22,30 @@
   </tbody>
 </table>
 
+</th:block>
 </body>
+
+</html>
 
 <!-- Script is layed out in a sequence (without a function) and will execute when page is loaded -->
 <script>
 
+  var ip = location.host;
+  console.log(ip);
+
   // prepare HTML defined "result" container for new output
   const resultContainer = document.getElementById("result");
 
-  // keys for joke reactions
-  const HAHA = "haha";
-  const BOOHOO = "boohoo";
+  // keys for equation reactions
+  const LIKE = "like";
+  const DISLIKE = "dislike";
 
   // prepare fetch urls
-  // const url = "https://flask.nighthawkcodingsociety.com/api/jokes";
-  const url = "https://spring.nighthawkcodingsociety.com/api/jokes";
+  // const url = "https://flask.nighthawkcodingsociety.com/api/equations";
+  const url = "http://" + location.host + "/api/physics";
   const get_url = url +"/";
   const like_url = url + "/like/";  // haha reaction
-  const jeer_url = url + "/dislike/";  // boohoo reaction
+  const dislike_url = url + "/dislike/";  // DISLIKE reaction
 
   // prepare fetch GET options
   const options = {
@@ -70,36 +77,36 @@
             // make "tr element" for each "row of data"
             const tr = document.createElement("tr");
             
-            // td for joke cell
-            const joke = document.createElement("td");
-              joke.innerHTML = row.id + ". " + row.joke;  // add fetched data to innerHTML
+            // td for equation cell
+            const equation = document.createElement("td");
+              equation.innerHTML = row.id + ". " + row.equation;  // add fetched data to innerHTML
 
-            // td for haha cell with onclick actions
-            const haha = document.createElement("td");
-              const haha_but = document.createElement('button');
-              haha_but.id = HAHA+row.id   // establishes a HAHA JS id for cell
-              haha_but.innerHTML = row.haha;  // add fetched "haha count" to innerHTML
-              haha_but.onclick = function () {
+            // td for like cell with onclick actions
+            const like = document.createElement("td");
+              const like_but = document.createElement('button');
+              like_but.id = LIKE+row.id   // establishes a LIKE JS id for cell
+              like_but.innerHTML = row.like;  // add fetched "like count" to innerHTML
+              like_but.onclick = function () {
                 // onclick function call with "like parameters"
-                reaction(HAHA, like_url+row.id, haha_but.id);  
+                reaction(LIKE, like_url+row.id, like_but.id);  
               };
-              haha.appendChild(haha_but);  // add "haha button" to haha cell
+              like.appendChild(like_but);  // add "like button" to like cell
 
-            // td for boohoo cell with onclick actions
-            const boohoo = document.createElement("td");
-              const boohoo_but = document.createElement('button');
-              boohoo_but.id = BOOHOO+row.id  // establishes a BOOHOO JS id for cell
-              boohoo_but.innerHTML = row.boohoo;  // add fetched "boohoo count" to innerHTML
-              boohoo_but.onclick = function () {
+            // td for DISLIKE cell with onclick actions
+            const dislike = document.createElement("td");
+              const dislike_but = document.createElement('button');
+              dislike_but.id = DISLIKE+row.id  // establishes a DISLIKE JS id for cell
+              dislike_but.innerHTML = row.dislike;  // add fetched "dislike count" to innerHTML
+              dislike_but.onclick = function () {
                 // onclick function call with "jeer parameters"
-                reaction(BOOHOO, jeer_url+row.id, boohoo_but.id);  
+                reaction(DISLIKE, jeer_url+row.id, dislike_but.id);  
               };
-              boohoo.appendChild(boohoo_but);  // add "boohoo button" to boohoo cell
+              dislike.appendChild(dislike_but);  // add "dislike button" to dislike cell
              
             // this builds ALL td's (cells) into tr (row) element
-            tr.appendChild(joke);
-            tr.appendChild(haha);
-            tr.appendChild(boohoo);
+            tr.appendChild(equation);
+            tr.appendChild(like);
+            tr.appendChild(dislike);
 
             // this adds all the tr (row) work above to the HTML "result" container
             resultContainer.appendChild(tr);
@@ -127,10 +134,10 @@
       response.json().then(data => {
           console.log(data);
           // Likes or Jeers updated/incremented
-          if (type === HAHA) // like data element
-            document.getElementById(elemID).innerHTML = data.haha;  // fetched haha data assigned to haha Document Object Model (DOM)
-          else if (type === BOOHOO) // jeer data element
-            document.getElementById(elemID).innerHTML = data.boohoo;  // fetched boohoo data assigned to boohoo Document Object Model (DOM)
+          if (type === LIKE) // like data element
+            document.getElementById(elemID).innerHTML = data.like;  // fetched like data assigned to like Document Object Model (DOM)
+          else if (type === DISLIKE) // jeer data element
+            document.getElementById(elemID).innerHTML = data.dislike;  // fetched dislike data assigned to dislike Document Object Model (DOM)
           else
             error("unknown type: " + type);  // should never occur
       })
@@ -170,8 +177,8 @@
     <button onclick='reaction("HAHA", "api/physics/like/1", "hahas")'>
         HAHA
     </button >
-    <button onclick='reaction("BOOHOO", "api/physics/jeer/1", "boohoos")'>
-        BOOHOO
+    <button onclick='reaction("DISLIKE", "api/physics/jeer/1", "DISLIKEs")'>
+        DISLIKE
     </button>
     {% comment %} <button onclick='reaction("SHARE", "api/physics/share/1", "shares")'>
         SHARE
@@ -183,8 +190,8 @@
     <div id="hahas">
 
     </div>
-    Boohoos
-    <div id="boohoos">
+    DISLIKEs
+    <div id="DISLIKEs">
 
     </div>
     Shares
@@ -211,8 +218,8 @@
             // Likes or Jeers updated/incremented
             if (type === "HAHA") // like data element
                 document.getElementById(elemID).innerHTML = data.haha;  // fetched haha data assigned to haha Document Object Model (DOM)
-            else if (type === "BOOHOO") // jeer data element
-                document.getElementById(elemID).innerHTML = data.boohoo;  // fetched boohoo data assigned to boohoo Document Object Model (DOM)
+            else if (type === "DISLIKE") // jeer data element
+                document.getElementById(elemID).innerHTML = data.DISLIKE;  // fetched DISLIKE data assigned to DISLIKE Document Object Model (DOM)
             else if (type === "SHARE")
                 document.getElementById(elemID).innerHTML = data.share;    
             else
