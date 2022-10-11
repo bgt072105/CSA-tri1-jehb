@@ -63,7 +63,7 @@ public class PhysicsInit {
                 // }
 
                 if (test.size() == 0)
-                    repository.save(new Physics(null, equation, 0, 0, 0)); //JPA save
+                    repository.save(new Physics(null, equation, 0, 0)); //JPA save
             }
             
         };

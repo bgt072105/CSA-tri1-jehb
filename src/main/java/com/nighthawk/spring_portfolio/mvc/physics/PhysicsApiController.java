@@ -38,7 +38,7 @@ public class PhysicsApiController {
         Optional<Physics> optional = repository.findById(id);
         if (optional.isPresent()) {  // Good ID
             Physics equation = optional.get();  // value from findByID
-            equation.setHaha(equation.getHaha()+1); // increment value
+            equation.setLike(equation.getLike()+1); // increment value
             repository.save(equation);  // save entity
             return new ResponseEntity<>(equation, HttpStatus.OK);  // OK HTTP response: status code, headers, and body
         }
@@ -46,14 +46,14 @@ public class PhysicsApiController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);  // Failed HTTP response: status code, headers, and body
     }
 
-    /* Update Jeer
+    /* Update Dislike
      */
-    @PutMapping("/jeer/{id}")
-    public ResponseEntity<Physics> setJeer(@PathVariable long id) {
+    @PutMapping("/dislike/{id}")
+    public ResponseEntity<Physics> setDislike(@PathVariable long id) {
         Optional<Physics> optional = repository.findById(id);
         if (optional.isPresent()) {  // Good ID
             Physics equation = optional.get();
-            equation.setBoohoo(equation.getBoohoo()+1);
+            equation.setDislike(equation.getDislike()+1);
             repository.save(equation);
             return new ResponseEntity<>(equation, HttpStatus.OK);
         }
@@ -61,17 +61,16 @@ public class PhysicsApiController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-
-    @PutMapping("/share/{id}")
-    public ResponseEntity<Physics> setShare(@PathVariable long id) {
-        Optional<Physics> optional = repository.findById(id);
-        if (optional.isPresent()) {  // Good ID
-            Physics equation = optional.get();
-            equation.setShare(equation.getShare()+1);
-            repository.save(equation);
-            return new ResponseEntity<>(equation, HttpStatus.OK);
-        }
-        // Bad ID
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
+    // @PutMapping("/share/{id}")
+    // public ResponseEntity<Physics> setShare(@PathVariable long id) {
+    //     Optional<Physics> optional = repository.findById(id);
+    //     if (optional.isPresent()) {  // Good ID
+    //         Physics equation = optional.get();
+    //         equation.setShare(equation.getShare()+1);
+    //         repository.save(equation);
+    //         return new ResponseEntity<>(equation, HttpStatus.OK);
+    //     }
+    //     // Bad ID
+    //     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    // }
 }
