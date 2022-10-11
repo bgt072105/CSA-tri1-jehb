@@ -24,7 +24,14 @@ public class PhysicsInit {
                 "E=mc^2",
                 "F=ma",
                 "p=mv",
-                "v=x+at"
+                "v=x+at",
+                "x=1/2at^2",
+                "v^2=x^2+2xd",
+                "E=Fd",
+                "F=kx",
+                "W=Fd",
+                "W=1/2kx^2",
+                "W=1/2mv^2"
 
                 // "If you give someone a program... you will frustrate them for a day; if you teach them how to program... you will frustrate them for a lifetime.",
                 // "Q: Why did I divide sin by tan? A: Just cos.",
@@ -49,6 +56,12 @@ public class PhysicsInit {
             // make sure Joke database is populated with starting jokes
             for (String equation : physicsArray) {
                 List<Physics> test = repository.findByEquationIgnoreCase(equation);  // JPA lookup
+
+                // UNCOMMENT TO CLEAR DATABASE
+                // if (test.size() > 0) {
+                //     repository.deleteAll();
+                // }
+
                 if (test.size() == 0)
                     repository.save(new Physics(null, equation, 0, 0, 0)); //JPA save
             }
