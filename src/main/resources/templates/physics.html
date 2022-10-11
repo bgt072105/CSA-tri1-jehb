@@ -8,17 +8,17 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <button onclick='reaction("HAHA", "api/jokes/like/1", "hahas")'>
+    <button onclick='reaction("HAHA", "api/physics/like/1", "hahas")'>
         HAHA
     </button >
-    <button onclick='reaction("BOOHOO", "api/jokes/jeer/1", "boohoos")'>
+    <button onclick='reaction("BOOHOO", "api/physics/jeer/1", "boohoos")'>
         BOOHOO
     </button>
-    <button onclick='reaction("SHARE", "api/jokes/share/1", "shares")'>
+    <button onclick='reaction("SHARE", "api/physics/share/1", "shares")'>
         SHARE
     </button>
-    Joke
-    <div id="joke">
+    equation
+    <div id="equation">
 
     </div>
     Hahas
@@ -49,7 +49,7 @@
         // valid response will have JSON data
         response.json().then(data => {
             console.log(data);
-            document.getElementById("joke").innerHTML = data.joke;
+            document.getElementById("equation").innerHTML = data.equation;
             // Likes or Jeers updated/incremented
             if (type === "HAHA") // like data element
                 document.getElementById(elemID).innerHTML = data.haha;  // fetched haha data assigned to haha Document Object Model (DOM)
