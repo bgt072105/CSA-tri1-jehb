@@ -1,0 +1,315 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/base}" lang="en">
+
+<head>
+    <title>Physics Equations</title>
+</head>
+
+<body>
+<input type="text" id="planet"></input>
+<button onclick="getPlanet(document.getElementById('planet').value)"></button>
+<table>
+  <thead>
+  <tr>
+    <th>Mass</th>
+    <th>Radius</th>
+    <th>Period</th>
+    <th>Semi Major Axis</th>
+    <th>Temperature</th>
+    <th>Distance Light Year</th>
+    <th>Host Star Mass</th>
+    <th>Host Star Temperature</th>
+  </tr>
+  </thead>
+  <tbody id="result">
+    <!-- javascript generated data -->
+  </tbody>
+</table>
+
+</th:block>
+</body>
+
+</html>
+
+<!-- Script is layed out in a sequence (without a function) and will execute when page is loaded -->
+<!-- <script>
+
+  var ip = location.host;
+  console.log(ip);
+
+  // prepare HTML defined "result" container for new output
+  const resultContainer = document.getElementById("result");
+
+  // prepare fetch urls
+  const url = "http://" + location.host + "/api/PlanetaryData/get/";
+
+  // prepare fetch GET options
+  const options = {
+    method: 'GET', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  };
+
+  function getPlanet(planet) {
+    const get_url = url+planet;
+    // fetch the API
+    fetch(get_url, options)
+        // response is a RESTful "promise" on any successful fetch
+        .then(response => {
+        // check for response errors
+        if (response.status !== 200) {
+            error('GET API response failure: ' + response.status);
+            return;
+        }
+        // valid response will have JSON data
+        response.json().then(data => {
+            console.log(data);
+            for (const row of data) {
+                // make "tr element" for each "row of data"
+                const tr = document.createElement("tr");
+                
+                // td for equation cell
+                const Mass = document.createElement("td");
+                Mass.innerHTML = row.id + ". " + row.Mass;  // add fetched data to innerHTML
+                
+                // this builds ALL td's (cells) into tr (row) element
+                tr.appendChild(Mass);
+
+                const Radius = document.createElement("td");
+                Radius.innerHTML = row.id + ". " + row.Radius;  // add fetched data to innerHTML
+                
+                // this builds ALL td's (cells) into tr (row) element
+                tr.appendChild(Radius);
+
+                const Period = document.createElement("td");
+                Period.innerHTML = row.id + ". " + row.Period;  // add fetched data to innerHTML
+                
+                // this builds ALL td's (cells) into tr (row) element
+                tr.appendChild(Period);
+
+                const Semi_Major_Axis = document.createElement("td");
+                Semi_Major_Axis.innerHTML = row.id + ". " + row.Semi_Major_Axis;  // add fetched data to innerHTML
+                
+                // this builds ALL td's (cells) into tr (row) element
+                tr.appendChild(Semi_Major_Axis);
+
+                const Temperature = document.createElement("td");
+                Temperature.innerHTML = row.id + ". " + row.Temperature;  // add fetched data to innerHTML
+                
+                // this builds ALL td's (cells) into tr (row) element
+                tr.appendChild(Temperature);
+
+                const Distance_Light_Year = document.createElement("td");
+                Distance_Light_Year.innerHTML = row.id + ". " + row.Distance_Light_Year;  // add fetched data to innerHTML
+                
+                // this builds ALL td's (cells) into tr (row) element
+                tr.appendChild(Distance_Light_Year);
+
+                const Host_Star_Mass = document.createElement("td");
+                Host_Star_Mass.innerHTML = row.id + ". " + row.Host_Star_Mass;  // add fetched data to innerHTML
+                
+                // this builds ALL td's (cells) into tr (row) element
+                tr.appendChild(Host_Star_Mass);
+                
+                const Host_Star_Temperature = document.createElement("td");
+                Host_Star_Temperature.innerHTML = row.id + ". " + row.Host_Star_Temperature;  // add fetched data to innerHTML
+                
+                // this builds ALL td's (cells) into tr (row) element
+                tr.appendChild(Host_Star_Temperature);
+
+                // this adds all the tr (row) work above to the HTML "result" container
+                resultContainer.appendChild(tr);
+            }
+        })
+    })
+    // catch fetch errors (ie Nginx ACCESS to server blocked)
+    .catch(err => {
+        error(err + " " + get_url);
+    });
+  }
+
+  // Something went wrong with actions or responses
+  function error(err) {
+    // log as Error in console
+    console.error(err);
+    // append error to resultContainer
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.innerHTML = err;
+    tr.appendChild(td);
+    resultContainer.appendChild(tr);
+  }
+
+</script> -->
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table {
+            width: 100%;
+        }
+    </style>
+  </head>
+  <body>
+    <input type="text" id="planet"></input>
+    <button onclick="getPlanet(document.getElementById('planet').value)">Search</button>
+    <table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Mass</th>
+        <th>Radius</th>
+        <th>Period</th>
+        <th>Semi Major Axis</th>
+        <th>Temperature</th>
+        <th>Distance Light Year</th>
+        <th>Host Star Mass</th>
+        <th>Host Star Temperature</th>
+    </tr>
+    </thead>
+    <tbody id="result">
+        <!-- javascript generated data -->
+    </tbody>
+    </table>
+
+    </th:block>
+    </body>
+
+    </html>
+
+    <!-- Script is layed out in a sequence (without a function) and will execute when page is loaded -->
+    <script>
+
+    var ip = location.host;
+    console.log(ip);
+
+    // prepare HTML defined "result" container for new output
+    const resultContainer = document.getElementById("result");
+
+    // prepare fetch urls
+    const url = "http://" + location.host + "/api/PlanetaryData/get/";
+
+    // prepare fetch GET options
+    const options = {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, same-origin, omit
+        headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+    };
+
+    function getPlanet(planet) {
+        const get_url = url+planet;
+        // fetch the API
+        fetch(get_url, options)
+            // response is a RESTful "promise" on any successful fetch
+            .then(response => {
+            // check for response errors
+            if (response.status !== 200) {
+                error('GET API response failure: ' + response.status);
+                return;
+            }
+            // valid response will have JSON data
+            response.json().then(data => {
+                console.log(data);
+                for (const row of data) {
+                    // make "tr element" for each "row of data"
+                    const tr = document.createElement("tr");
+                    
+                    // td for equation cell
+                    const name = document.createElement("td");
+                    name.innerHTML = row.name;  // add fetched data to innerHTML
+                    
+                    // this builds ALL td's (cells) into tr (row) element
+                    tr.appendChild(name);
+
+                    const mass = document.createElement("td");
+                    mass.innerHTML = row.mass;  // add fetched data to innerHTML
+                    
+                    // this builds ALL td's (cells) into tr (row) element
+                    tr.appendChild(mass);
+
+                    const radius = document.createElement("td");
+                    radius.innerHTML = row.radius;  // add fetched data to innerHTML
+                    
+                    // this builds ALL td's (cells) into tr (row) element
+                    tr.appendChild(radius);
+
+                    const period = document.createElement("td");
+                    period.innerHTML = row.period;  // add fetched data to innerHTML
+                    
+                    // this builds ALL td's (cells) into tr (row) element
+                    tr.appendChild(period);
+
+                    const semi_major_axis = document.createElement("td");
+                    semi_major_axis.innerHTML = row.semi_major_axis;  // add fetched data to innerHTML
+                    
+                    // this builds ALL td's (cells) into tr (row) element
+                    tr.appendChild(semi_major_axis);
+
+                    const temperature = document.createElement("td");
+                    temperature.innerHTML = row.temperature;  // add fetched data to innerHTML
+                    
+                    // this builds ALL td's (cells) into tr (row) element
+                    tr.appendChild(temperature);
+
+                    const distance_light_year = document.createElement("td");
+                    distance_light_year.innerHTML = row.distance_light_year;  // add fetched data to innerHTML
+                    
+                    // this builds ALL td's (cells) into tr (row) element
+                    tr.appendChild(distance_light_year);
+
+                    const host_star_mass = document.createElement("td");
+                    host_star_mass.innerHTML = row.host_star_mass;  // add fetched data to innerHTML
+                    
+                    // this builds ALL td's (cells) into tr (row) element
+                    tr.appendChild(host_star_mass);
+                    
+                    const host_star_temperature = document.createElement("td");
+                    host_star_temperature.innerHTML = row.host_star_temperature;  // add fetched data to innerHTML
+                    
+                    // this builds ALL td's (cells) into tr (row) element
+                    tr.appendChild(host_star_temperature);
+
+                    // this adds all the tr (row) work above to the HTML "result" container
+                    resultContainer.appendChild(tr);
+                }
+            })
+        })
+        // catch fetch errors (ie Nginx ACCESS to server blocked)
+        .catch(err => {
+            error(err + " " + get_url);
+        });
+    }
+
+    // Something went wrong with actions or responses
+    function error(err) {
+        // log as Error in console
+        console.error(err);
+        // append error to resultContainer
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.innerHTML = err;
+        tr.appendChild(td);
+        resultContainer.appendChild(tr);
+    }
+
+    </script>
+  </body>
+</html> {% endcomment %}
