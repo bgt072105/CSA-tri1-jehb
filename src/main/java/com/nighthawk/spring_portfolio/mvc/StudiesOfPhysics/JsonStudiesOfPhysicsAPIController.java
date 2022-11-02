@@ -19,13 +19,73 @@ public class JsonStudiesOfPhysicsAPIController {
     private JSONObject body;
     private HttpStatus status;
 
-    @GetMapping("/studies")
-    public ResponseEntity<JSONObject> getStudies() {
+    @GetMapping("/advanced")
+    public ResponseEntity<JSONObject> getAdvanced() {
         try {  
             
             //RapidAPI header
             HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create("https://physitionary.p.rapidapi.com/advanced"))
+            .header("X-RapidAPI-Key", "3d43659d98msh26d5e705bc7d8b6p1d6431jsnba44357aaf20")
+            .header("X-RapidAPI-Host", "physitionary.p.rapidapi.com")
+            .method("GET", HttpRequest.BodyPublishers.noBody())
+            .build();
+            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(response.body());
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("obj", obj);
+            this.body = jsonObject;
+            this.status = HttpStatus.OK;
+        }
+        catch (Exception e) {  
+             HashMap<String, String> status = new HashMap<>();
+            status.put("status", "RapidApi failure: " + e);
+
+            this.body = (JSONObject) status;
+            this.status = HttpStatus.INTERNAL_SERVER_ERROR; 
+        }
+
+        return new ResponseEntity<>(body, status);
+    }
+    @GetMapping("/intermediate")
+    public ResponseEntity<JSONObject> getIntermediate() {
+        try {  
+            
+            //RapidAPI header
+            HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("https://physitionary.p.rapidapi.com/intermediate"))
+            .header("X-RapidAPI-Key", "3d43659d98msh26d5e705bc7d8b6p1d6431jsnba44357aaf20")
+            .header("X-RapidAPI-Host", "physitionary.p.rapidapi.com")
+            .method("GET", HttpRequest.BodyPublishers.noBody())
+            .build();
+            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(response.body());
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("obj", obj);
+            this.body = jsonObject;
+            this.status = HttpStatus.OK;
+        }
+        catch (Exception e) {  
+             HashMap<String, String> status = new HashMap<>();
+            status.put("status", "RapidApi failure: " + e);
+
+            this.body = (JSONObject) status;
+            this.status = HttpStatus.INTERNAL_SERVER_ERROR; 
+        }
+
+        return new ResponseEntity<>(body, status);
+    }
+    @GetMapping("/basic")
+    public ResponseEntity<JSONObject> getBasic() {
+        try {  
+            
+            //RapidAPI header
+            HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("https://physitionary.p.rapidapi.com/basic"))
             .header("X-RapidAPI-Key", "3d43659d98msh26d5e705bc7d8b6p1d6431jsnba44357aaf20")
             .header("X-RapidAPI-Host", "physitionary.p.rapidapi.com")
             .method("GET", HttpRequest.BodyPublishers.noBody())
